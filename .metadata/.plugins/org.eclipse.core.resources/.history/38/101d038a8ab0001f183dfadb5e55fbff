@@ -1,0 +1,5 @@
+package com.bhotel.response;
+
+public class BookingResponse {
+
+}

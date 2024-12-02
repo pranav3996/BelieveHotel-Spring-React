@@ -1,0 +1,5 @@
+package com.bhotel.model;
+
+public class Room {
+
+}
