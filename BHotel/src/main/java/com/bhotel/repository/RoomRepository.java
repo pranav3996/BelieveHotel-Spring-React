@@ -1,5 +1,9 @@
 package com.bhotel.repository;
 
-public interface RoomRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bhotel.model.Room;
+
+public interface RoomRepository extends JpaRepository<Room, Long> {
 
 }
