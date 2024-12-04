@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bhotel.exception.InternalServerException;
 import com.bhotel.exception.ResourceNotFoundException;
 import com.bhotel.model.Room;
 import com.bhotel.repository.RoomRepository;
@@ -70,16 +71,26 @@ public class RoomService implements IRoomService {
 	            roomRepository.deleteById(roomId);
 	        }
 	    }
-	@Override
-	public Room updateRoom(Long roomId, String roomType, BigDecimal roomPrice, byte[] photoBytes) {
-		
-		return null;
-	}
-	@Override
-	public Optional<Room> getRoomById(Long roomId) {
-		
-		return Optional.empty();
-	}
+	   @Override
+	    public Room updateRoom(Long roomId, String roomType, BigDecimal roomPrice, byte[] photoBytes) {
+	        Room room = roomRepository.findById(roomId).get();
+	        if (roomType != null) room.setRoomType(roomType);
+	        if (roomPrice != null) room.setRoomPrice(roomPrice);
+	        if (photoBytes != null && photoBytes.length > 0) {
+	            try {
+	                room.setPhoto(new SerialBlob(photoBytes));
+	            } catch (SQLException ex) {
+	                throw new InternalServerException("Fail updating room");
+	            }
+	        }
+	       return roomRepository.save(room);
+	    }
+
+	    @Override
+	    public Optional<Room> getRoomById(Long roomId) {
+	        return Optional.of(roomRepository.findById(roomId).get());
+	    }
+	    
 	@Override
 	public List<Room> getAvailableRooms(LocalDate checkInDate, LocalDate checkOutDate, String roomType) {
 	

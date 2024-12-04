@@ -99,9 +99,9 @@ const ExistingRooms = () => {
 							</Col>
 
 							<Col md={6} className="d-flex justify-content-end">
-								{/* <Link to={"/add-room"}>
+								<Link to={"/add-room"}>
 									<FaPlus /> Add Room
-								</Link> */}
+								</Link>
 							</Col>
 						</Row>
 
@@ -122,8 +122,8 @@ const ExistingRooms = () => {
 										<td>{room.roomType}</td>
 										<td>{room.roomPrice}</td>
 										<td className="gap-2">
-											{/* <Link to={`/edit-room/${room.id}`} className="gap-2">  */}
-                                            <Link>
+											<Link to={`/edit-room/${room.id}`} className="gap-2"> 
+                                           
 												<span className="btn btn-info btn-sm">
 													<FaEye />
                                                 

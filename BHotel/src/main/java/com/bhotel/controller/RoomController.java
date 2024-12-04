@@ -6,6 +6,9 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import javax.sql.rowset.serial.SerialBlob;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +19,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bhotel.exception.PhotoRetrievalException;
+import com.bhotel.exception.ResourceNotFoundException;
 import com.bhotel.model.BookedRoom;
 import com.bhotel.model.Room;
 import com.bhotel.response.BookingResponse;
@@ -84,6 +89,30 @@ public class RoomController {
 	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	    }
 	   
+	    
+	    @PutMapping("/update/{roomId}")
+//	    @PreAuthorize("hasRole('ROLE_ADMIN')")
+	    public ResponseEntity<RoomResponse> updateRoom(@PathVariable Long roomId,
+	                                                   @RequestParam(required = false)  String roomType,
+	                                                   @RequestParam(required = false) BigDecimal roomPrice,
+	                                                   @RequestParam(required = false) MultipartFile photo) throws SQLException, IOException {
+	        byte[] photoBytes = photo != null && !photo.isEmpty() ?
+	                photo.getBytes() : roomService.getRoomPhotoByRoomId(roomId);
+	        Blob photoBlob = photoBytes != null && photoBytes.length >0 ? new SerialBlob(photoBytes): null;
+	        Room theRoom = roomService.updateRoom(roomId, roomType, roomPrice, photoBytes);
+	        theRoom.setPhoto(photoBlob);
+	        RoomResponse roomResponse = getRoomResponse(theRoom);
+	        return ResponseEntity.ok(roomResponse);
+	    }
+
+	    @GetMapping("/room/{roomId}")
+	    public ResponseEntity<Optional<RoomResponse>> getRoomById(@PathVariable Long roomId){
+	        Optional<Room> theRoom = roomService.getRoomById(roomId);
+	        return theRoom.map(room -> {
+	            RoomResponse roomResponse = getRoomResponse(room);
+	            return  ResponseEntity.ok(Optional.of(roomResponse));
+	        }).orElseThrow(() -> new ResourceNotFoundException("Room not found"));
+	    }
 	   
 	   private RoomResponse getRoomResponse(Room room) {
 	        List<BookedRoom> bookings = getAllBookingsByRoomId(room.getId());
