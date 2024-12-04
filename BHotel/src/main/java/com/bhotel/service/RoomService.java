@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bhotel.exception.ResourceNotFoundException;
 import com.bhotel.model.Room;
 import com.bhotel.repository.RoomRepository;
 import com.bhotel.service.Interfaces.IRoomService;
@@ -37,39 +38,51 @@ public class RoomService implements IRoomService {
         }
         return roomRepository.save(room);
     }
+    
 	@Override
 	public List<String> getAllRoomTypes() {
-		// TODO Auto-generated method stub
-		return null;
+	
+		return roomRepository.findDistinctRoomTypes();
 	}
 	@Override
 	public List<Room> getAllRooms() {
-		// TODO Auto-generated method stub
-		return null;
+	
+		 return roomRepository.findAll();
 	}
-	@Override
-	public byte[] getRoomPhotoByRoomId(Long roomId) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public void deleteRoom(Long roomId) {
-		// TODO Auto-generated method stub
-		
-	}
+	
+	   @Override
+	    public byte[] getRoomPhotoByRoomId(Long roomId) throws SQLException {
+	        Optional<Room> theRoom = roomRepository.findById(roomId);
+	        if(theRoom.isEmpty()){
+	            throw new ResourceNotFoundException("Sorry, Room not found!");
+	        }
+	        Blob photoBlob = theRoom.get().getPhoto();
+	        if(photoBlob != null){
+	            return photoBlob.getBytes(1, (int) photoBlob.length());
+	        }
+	        return null;
+	    }
+	   
+	   @Override
+	    public void deleteRoom(Long roomId) {
+	        Optional<Room> theRoom = roomRepository.findById(roomId);
+	        if(theRoom.isPresent()){
+	            roomRepository.deleteById(roomId);
+	        }
+	    }
 	@Override
 	public Room updateRoom(Long roomId, String roomType, BigDecimal roomPrice, byte[] photoBytes) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 	@Override
 	public Optional<Room> getRoomById(Long roomId) {
-		// TODO Auto-generated method stub
+		
 		return Optional.empty();
 	}
 	@Override
 	public List<Room> getAvailableRooms(LocalDate checkInDate, LocalDate checkOutDate, String roomType) {
-		// TODO Auto-generated method stub
+	
 		return null;
 	}
 
