@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bhotel.exception.InvalidBookingRequestException;
 import com.bhotel.exception.ResourceNotFoundException;
 import com.bhotel.model.BookedRoom;
 import com.bhotel.model.Room;
@@ -57,6 +58,23 @@ public class BookingController {
 	        }
 	    }
 	    
+	    @PostMapping("/room/{roomId}/booking")
+	    public ResponseEntity<?> saveBooking(@PathVariable Long roomId,
+	                                         @RequestBody BookedRoom bookingRequest){
+	        try{
+	            String confirmationCode = bookingService.saveBooking(roomId, bookingRequest);
+	            return ResponseEntity.ok(
+	                    "Room booked successfully, Your booking confirmation code is :"+confirmationCode);
+
+	        }catch (InvalidBookingRequestException e){
+	            return ResponseEntity.badRequest().body(e.getMessage());
+	        }
+	    }
+	    
+	    @DeleteMapping("/booking/{bookingId}/delete")
+	    public void cancelBooking(@PathVariable Long bookingId){
+	        bookingService.cancelBooking(bookingId);
+	    }
 	    
 	    private BookingResponse getBookingResponse(BookedRoom booking) {
 	        Room theRoom = roomService.getRoomById(booking.getRoom().getId()).get();
