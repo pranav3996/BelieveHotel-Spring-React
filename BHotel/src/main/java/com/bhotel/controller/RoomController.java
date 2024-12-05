@@ -34,7 +34,6 @@ import com.bhotel.response.RoomResponse;
 import com.bhotel.service.BookingService;
 import com.bhotel.service.Interfaces.IRoomService;
 
-import lombok.RequiredArgsConstructor;
 
 
 @RestController
