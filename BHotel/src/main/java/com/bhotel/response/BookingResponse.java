@@ -1,14 +1,7 @@
 package com.bhotel.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class BookingResponse {
 
     private Long id;
@@ -111,6 +104,13 @@ public class BookingResponse {
 
 	public void setRoom(RoomResponse room) {
 		this.room = room;
+	}
+
+	
+	
+	public BookingResponse() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public BookingResponse(Long id, LocalDate checkInDate, LocalDate checkOutDate,
