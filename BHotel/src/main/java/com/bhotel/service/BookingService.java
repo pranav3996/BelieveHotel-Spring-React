@@ -61,6 +61,8 @@ public class BookingService implements IBookingService {
         return bookingRequest.getBookingConfirmationCode();
     }
     
+    
+    //Valid Check in and Check out dates
     private boolean roomIsAvailable(BookedRoom bookingRequest, List<BookedRoom> existingBookings) {
         return existingBookings.stream().noneMatch(existingBooking -> {
             // Extract dates for better readability
