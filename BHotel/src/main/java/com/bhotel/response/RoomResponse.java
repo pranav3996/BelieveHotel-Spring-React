@@ -1,15 +1,13 @@
 package com.bhotel.response;
 
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
 import org.apache.tomcat.util.codec.binary.Base64;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-@Data
-@NoArgsConstructor
+
 public class RoomResponse {
     private Long id;
     private String roomType;
@@ -18,7 +16,20 @@ public class RoomResponse {
     private String photo;
     private List<BookingResponse>bookings;
     
-    public RoomResponse(Long id, String roomType, BigDecimal roomPrice) {
+    
+    
+    public RoomResponse(Long id, String roomType, BigDecimal roomPrice, boolean isBooked, String photo,
+			List<BookingResponse> bookings) {
+		super();
+		this.id = id;
+		this.roomType = roomType;
+		this.roomPrice = roomPrice;
+		this.isBooked = isBooked;
+		this.photo = photo;
+		this.bookings = bookings;
+	}
+
+	public RoomResponse(Long id, String roomType, BigDecimal roomPrice) {
         this.id = id;
         this.roomType = roomType;
         this.roomPrice = roomPrice;
@@ -80,6 +91,11 @@ public class RoomResponse {
 
 	public void setBookings(List<BookingResponse> bookings) {
 		this.bookings = bookings;
+	}
+
+	public RoomResponse() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	
