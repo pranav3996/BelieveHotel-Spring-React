@@ -18,7 +18,6 @@ import com.bhotel.repository.RoomRepository;
 import com.bhotel.service.Interfaces.IRoomService;
 
 import javax.sql.rowset.serial.SerialBlob;
-import lombok.RequiredArgsConstructor;
 import java.sql.Blob;
 
 @Service
@@ -91,10 +90,9 @@ public class RoomService implements IRoomService {
 	        return Optional.of(roomRepository.findById(roomId).get());
 	    }
 	    
-	@Override
-	public List<Room> getAvailableRooms(LocalDate checkInDate, LocalDate checkOutDate, String roomType) {
-	
-		return null;
-	}
+	    @Override
+	    public List<Room> getAvailableRooms(LocalDate checkInDate, LocalDate checkOutDate, String roomType) {
+	        return roomRepository.findAvailableRoomsByDatesAndType(checkInDate, checkOutDate, roomType);
+	    }
 
 }
