@@ -4,29 +4,27 @@ import java.time.LocalDate;
 
 public class BookingResponse {
 
-    private Long id;
+	private Long id;
 
-    private LocalDate checkInDate;
+	private LocalDate checkInDate;
 
-    private LocalDate checkOutDate;
+	private LocalDate checkOutDate;
 
-    private String guestName;
+	private String guestName;
 
-    private String guestEmail;
+	private String guestEmail;
 
-    private int numOfAdults;
+	private int numOfAdults;
 
-    private int numOfChildren;
+	private int numOfChildren;
 
-    private int totalNumOfGuests;
+	private int totalNumOfGuests;
 
-    private String bookingConfirmationCode;
+	private String bookingConfirmationCode;
 
-    private RoomResponse room;
+	private RoomResponse room;
 
-    
-    
-    public Long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -106,20 +104,17 @@ public class BookingResponse {
 		this.room = room;
 	}
 
-	
-	
 	public BookingResponse() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public BookingResponse(Long id, LocalDate checkInDate, LocalDate checkOutDate,
-                           String bookingConfirmationCode) {
-        this.id = id;
-        this.checkInDate = checkInDate;
-        this.checkOutDate = checkOutDate;
-        this.bookingConfirmationCode = bookingConfirmationCode;
-    }
+	public BookingResponse(Long id, LocalDate checkInDate, LocalDate checkOutDate, String bookingConfirmationCode) {
+		this.id = id;
+		this.checkInDate = checkInDate;
+		this.checkOutDate = checkOutDate;
+		this.bookingConfirmationCode = bookingConfirmationCode;
+	}
 
 	public BookingResponse(Long id, LocalDate checkInDate, LocalDate checkOutDate, String guestName, String guestEmail,
 			int numOfAdults, int numOfChildren, int totalNumOfGuests, String bookingConfirmationCode,
@@ -136,5 +131,5 @@ public class BookingResponse {
 		this.bookingConfirmationCode = bookingConfirmationCode;
 		this.room = room;
 	}
-    
+
 }

@@ -17,66 +17,65 @@ import com.bhotel.service.Interfaces.IRoomService;
 public class BookingService implements IBookingService {
 
 	@Autowired
-    private  BookingRepository bookingRepository;
+	private BookingRepository bookingRepository;
 	@Autowired
-    private  IRoomService roomService;
-	
+	private IRoomService roomService;
 
-    @Override
-    public List<BookedRoom> getAllBookingsByRoomId(Long roomId) {
-        return bookingRepository.findByRoomId(roomId);
-    }
-    
-    @Override
-    public List<BookedRoom> getAllBookings() {
-        return bookingRepository.findAll();
-    }
-    @Override
-    public void cancelBooking(Long bookingId) {
-        bookingRepository.deleteById(bookingId);
-    }
+	@Override
+	public List<BookedRoom> getAllBookingsByRoomId(Long roomId) {
+		return bookingRepository.findByRoomId(roomId);
+	}
 
-    
-    @Override
-    public BookedRoom findByBookingConfirmationCode(String confirmationCode) {
-        return bookingRepository.findByBookingConfirmationCode(confirmationCode)
-                .orElseThrow(() -> new ResourceNotFoundException("No booking found with booking code :"+confirmationCode));
+	@Override
+	public List<BookedRoom> getAllBookings() {
+		return bookingRepository.findAll();
+	}
 
-    }
-    
-    @Override
-    public String saveBooking(Long roomId, BookedRoom bookingRequest) {
-        if (bookingRequest.getCheckOutDate().isBefore(bookingRequest.getCheckInDate())){
-            throw new InvalidBookingRequestException("Check-in date must come before check-out date");
-        }
-        Room room = roomService.getRoomById(roomId).get();
-        List<BookedRoom> existingBookings = room.getBookings();
-        boolean roomIsAvailable = roomIsAvailable(bookingRequest,existingBookings);
-        if (roomIsAvailable){
-            room.addBooking(bookingRequest);
-            bookingRepository.save(bookingRequest);
-        }else{
-            throw  new InvalidBookingRequestException("Sorry, This room is not available for the selected dates;");
-        }
-        return bookingRequest.getBookingConfirmationCode();
-    }
-    
-    
-    //Valid Check in and Check out dates
-    private boolean roomIsAvailable(BookedRoom bookingRequest, List<BookedRoom> existingBookings) {
-        return existingBookings.stream().noneMatch(existingBooking -> {
-            // Extract dates for better readability
-            var newCheckIn = bookingRequest.getCheckInDate();
-            var newCheckOut = bookingRequest.getCheckOutDate();
-            var existingCheckIn = existingBooking.getCheckInDate();
-            var existingCheckOut = existingBooking.getCheckOutDate();
+	@Override
+	public void cancelBooking(Long bookingId) {
+		bookingRepository.deleteById(bookingId);
+	}
 
-            // Check if the requested booking overlaps with any existing booking
-            return (newCheckIn.equals(existingCheckIn) || newCheckOut.equals(existingCheckOut)) // Same day overlaps
-                    || (newCheckIn.isBefore(existingCheckOut) && newCheckOut.isAfter(existingCheckIn)) // Overlapping dates
-                    || (newCheckIn.equals(existingCheckOut) && newCheckOut.equals(existingCheckIn)); // Inverse overlap
-        });
-    }
+	@Override
+	public BookedRoom findByBookingConfirmationCode(String confirmationCode) {
+		return bookingRepository.findByBookingConfirmationCode(confirmationCode).orElseThrow(
+				() -> new ResourceNotFoundException("No booking found with booking code :" + confirmationCode));
+
+	}
+
+	@Override
+	public String saveBooking(Long roomId, BookedRoom bookingRequest) {
+		if (bookingRequest.getCheckOutDate().isBefore(bookingRequest.getCheckInDate())) {
+			throw new InvalidBookingRequestException("Check-in date must come before check-out date");
+		}
+		Room room = roomService.getRoomById(roomId).get();
+		List<BookedRoom> existingBookings = room.getBookings();
+		boolean roomIsAvailable = roomIsAvailable(bookingRequest, existingBookings);
+		if (roomIsAvailable) {
+			room.addBooking(bookingRequest);
+			bookingRepository.save(bookingRequest);
+		} else {
+			throw new InvalidBookingRequestException("Sorry, This room is not available for the selected dates;");
+		}
+		return bookingRequest.getBookingConfirmationCode();
+	}
+
+	// Valid Check in and Check out dates
+	private boolean roomIsAvailable(BookedRoom bookingRequest, List<BookedRoom> existingBookings) {
+		return existingBookings.stream().noneMatch(existingBooking -> {
+			// Extract dates for better readability
+			var newCheckIn = bookingRequest.getCheckInDate();
+			var newCheckOut = bookingRequest.getCheckOutDate();
+			var existingCheckIn = existingBooking.getCheckInDate();
+			var existingCheckOut = existingBooking.getCheckOutDate();
+
+			// Check if the requested booking overlaps with any existing booking
+			return (newCheckIn.equals(existingCheckIn) || newCheckOut.equals(existingCheckOut)) // Same day overlaps
+					|| (newCheckIn.isBefore(existingCheckOut) && newCheckOut.isAfter(existingCheckIn)) // Overlapping
+																										// dates
+					|| (newCheckIn.equals(existingCheckOut) && newCheckOut.equals(existingCheckIn)); // Inverse overlap
+		});
+	}
 
 //    private boolean roomIsAvailable(BookedRoom bookingRequest, List<BookedRoom> existingBookings) {
 //        return existingBookings.stream()

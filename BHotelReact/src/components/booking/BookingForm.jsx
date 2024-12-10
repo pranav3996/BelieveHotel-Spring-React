@@ -13,12 +13,12 @@ const BookingForm = () => {
 	const [errorMessage, setErrorMessage] = useState("")
 	const [roomPrice, setRoomPrice] = useState(0)
 
-// const currentUser = localStorage.getItem("userId")
+	// const currentUser = localStorage.getItem("userId")
 
 	const [booking, setBooking] = useState({
 		guestFullName: "",
 		// guestEmail: currentUser,
-        guestEmail: "",
+		guestEmail: "",
 		checkInDate: "",
 		checkOutDate: "",
 		numOfAdults: "",
@@ -56,7 +56,7 @@ const BookingForm = () => {
 		return diffInDays * paymentPerDay
 	}
 
-    /* Atleast One Adult */
+	/* Atleast One Adult */
 	const isGuestCountValid = () => {
 		const adultCount = parseInt(booking.numOfAdults)
 		const childrenCount = parseInt(booking.numOfChildren)
@@ -64,7 +64,7 @@ const BookingForm = () => {
 		return totalCount >= 1 && adultCount >= 1
 	}
 
-    /* Check-out date must be after check-in date */
+	/* Check-out date must be after check-in date */
 	const isCheckOutDateValid = () => {
 		if (!moment(booking.checkOutDate).isSameOrAfter(moment(booking.checkInDate))) {
 			setErrorMessage("Check-out date must be after check-in date")
@@ -137,7 +137,7 @@ const BookingForm = () => {
 										value={booking.guestEmail}
 										placeholder="Enter your email"
 										onChange={handleInputChange}
-										
+
 									/>
 									<Form.Control.Feedback type="invalid">
 										Please enter a valid email address.

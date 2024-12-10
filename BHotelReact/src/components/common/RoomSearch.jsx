@@ -97,7 +97,7 @@ const RoomSearch = () => {
 										handleRoomInputChange={handleInputChange}
 										newRoom={searchQuery}
 									/>
-									<Button variant="secondary" type="submit" className="ml-2">
+									<Button variant="secondary" type="submit" className="ml-2 btn-hotel">
 										Search
 									</Button>
 								</div>

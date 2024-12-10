@@ -23,34 +23,34 @@ function App() {
 
   return (
     <>
-  <main>
-    <Router>
-      <NavBar />
-      <Routes>
-      <Route path="/" element={<Home />} />
-						<Route path="/edit-room/:roomId" element={<EditRoom />} />
-						<Route path="/existing-rooms" element={<ExistingRooms />} />
-						<Route path="/add-room" element={<AddRoom />} />
+      <main>
+        <Router>
+          <NavBar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/edit-room/:roomId" element={<EditRoom />} />
+            <Route path="/existing-rooms" element={<ExistingRooms />} />
+            <Route path="/add-room" element={<AddRoom />} />
             <Route path="/browse-all-rooms" element={<RoomListing />} />
             <Route path="/admin" element={<Admin />} />
 
             <Route
-							path="/book-room/:roomId"
-							element={
-								// <RequireAuth>
-									<Checkout />
-								// {/* </RequireAuth> */}
-							}
-						/>
+              path="/book-room/:roomId"
+              element={
+                // <RequireAuth>
+                <Checkout />
+                // {/* </RequireAuth> */}
+              }
+            />
             <Route path="/booking-success" element={<BookingSuccess />} />
             <Route path="/existing-bookings" element={<Bookings />} />
             <Route path="/find-booking" element={<FindBooking />} />
-      </Routes>
-      <Footer />
-    </Router>
-  </main>
- 
-    
+          </Routes>
+          <Footer />
+        </Router>
+      </main>
+
+
     </>
   )
 }

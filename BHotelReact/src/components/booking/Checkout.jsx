@@ -14,30 +14,30 @@ import {
 } from "react-icons/fa"
 
 const Checkout = () => {
-    const [error, setError] = useState("");
-    const [isLoading, setIsLoading] = useState(true);
-    const [roomInfo, setRoomInfo] = useState({
-        photo:"",
-        roomType:"",
-        roomPrice:""
-    });
-    const {roomId}=useParams();
+	const [error, setError] = useState("");
+	const [isLoading, setIsLoading] = useState(true);
+	const [roomInfo, setRoomInfo] = useState({
+		photo: "",
+		roomType: "",
+		roomPrice: ""
+	});
+	const { roomId } = useParams();
 
-    useEffect(()=>{
-        setTimeout(()=>{
-            getRoomById(roomId)
-            .then((response)=>{
-                setRoomInfo(response);
-                setIsLoading(false);
-            })
-            .catch((error)=>{
-                setError(error)
-                setIsLoading(false)
-            })
-        },2000)
+	useEffect(() => {
+		setTimeout(() => {
+			getRoomById(roomId)
+				.then((response) => {
+					setRoomInfo(response);
+					setIsLoading(false);
+				})
+				.catch((error) => {
+					setError(error)
+					setIsLoading(false)
+				})
+		}, 2000)
 
-    },[roomId])
-    return (
+	}, [roomId])
+	return (
 		<div>
 			<section className="container">
 				<div className="row">

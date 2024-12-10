@@ -13,7 +13,7 @@ export async function addRoom(photo, roomType, roomPrice) {
 	formData.append("roomType", roomType)
 	formData.append("roomPrice", roomPrice)
 
-    const response = await api.post("/rooms/add/new-room", formData)
+	const response = await api.post("/rooms/add/new-room", formData)
 	// const response = await api.post("/rooms/add/new-room", formData,{
 	// 	headers: getHeader()
 	// })
@@ -27,7 +27,7 @@ export async function addRoom(photo, roomType, roomPrice) {
 /* This function gets all room types from thee database */
 export async function getRoomTypes() {
 	try {
-		
+
 		const response = await api.get("/rooms/room/types")
 		return response.data
 	} catch (error) {
@@ -67,7 +67,7 @@ export async function updateRoom(roomId, roomData) {
 	// const response = await api.put(`/rooms/update/${roomId}`, formData,{
 	// 	headers: getHeader()
 	// })
-	const response=await api.put(`/rooms/update/${roomId}`,formData)
+	const response = await api.put(`/rooms/update/${roomId}`, formData)
 	return response
 }
 
@@ -101,7 +101,7 @@ export async function getAllBookings() {
 		// const result = await api.get("/bookings/all-bookings", {
 		// 	headers: getHeader()
 		// })
-		const result=await api.get("/bookings/all-bookings")
+		const result = await api.get("/bookings/all-bookings")
 		return result.data
 	} catch (error) {
 		throw new Error(`Error fetching bookings : ${error.message}`)
@@ -130,4 +130,13 @@ export async function cancelBooking(bookingId) {
 	} catch (error) {
 		throw new Error(`Error cancelling booking :${error.message}`)
 	}
+}
+
+/* This function gets all availavle rooms from the database with a given date and a room type */
+export async function getAvailableRooms(checkInDate, checkOutDate, roomType) {
+	const result = await api.get(
+		`rooms/available-rooms?checkInDate=${checkInDate}
+		&checkOutDate=${checkOutDate}&roomType=${roomType}`
+	)
+	return result
 }

@@ -18,7 +18,7 @@ const RoomFilter = ({ data, setFilteredData }) => {
 		setFilteredData(data)
 	}
 
-    /* Get unique room types from data */
+	/* Get unique room types from data */
 	const roomTypes = ["", ...new Set(data.map((room) => room.roomType))]
 
 	return (

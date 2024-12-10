@@ -10,7 +10,7 @@ const Room = () => {
 	const [error, setError] = useState(null)
 	const [isLoading, setIsLoading] = useState(false)
 	const [currentPage, setCurrentPage] = useState(1)
-	const [roomsPerPage] = useState(6)
+	const [roomsPerPage] = useState(4)
 	const [filteredData, setFilteredData] = useState([{ id: "" }])
 
 	useEffect(() => {
@@ -39,7 +39,7 @@ const Room = () => {
 
 	const totalPages = Math.ceil(filteredData.length / roomsPerPage)
 
-	const renderRooms = () => {                     
+	const renderRooms = () => {
 		const startIndex = (currentPage - 1) * roomsPerPage
 		const endIndex = startIndex + roomsPerPage
 		return filteredData

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom"
 
 const ExistingRooms = () => {
 
-    const [rooms, setRooms] = useState([{ id: "", roomType: "", roomPrice: "" }])
+	const [rooms, setRooms] = useState([{ id: "", roomType: "", roomPrice: "" }])
 	const [currentPage, setCurrentPage] = useState(1)
 	const [roomsPerPage] = useState(8)
 	const [isLoading, setIsLoading] = useState(false)
@@ -21,7 +21,7 @@ const ExistingRooms = () => {
 		fetchRooms()
 	}, [])
 
-    const fetchRooms = async () => {
+	const fetchRooms = async () => {
 		setIsLoading(true)
 		try {
 			const result = await getAllRooms()
@@ -33,7 +33,7 @@ const ExistingRooms = () => {
 		}
 	}
 
-    useEffect(() => {
+	useEffect(() => {
 		if (selectedRoomType === "") {
 			setFilteredRooms(rooms)
 		} else {
@@ -45,7 +45,7 @@ const ExistingRooms = () => {
 
 
 
-    const handleDelete = async (roomId) => {
+	const handleDelete = async (roomId) => {
 		try {
 			const result = await deleteRoom(roomId)
 			if (result === "") {
@@ -63,11 +63,11 @@ const ExistingRooms = () => {
 		}, 3000)
 	}
 
-    const handlePaginationClick = (pageNumber) => {
+	const handlePaginationClick = (pageNumber) => {
 		setCurrentPage(pageNumber)
 	}
 
-    const calculateTotalPages = (filteredRooms, roomsPerPage, rooms) => {
+	const calculateTotalPages = (filteredRooms, roomsPerPage, rooms) => {
 		const totalRooms = filteredRooms.length > 0 ? filteredRooms.length : rooms.length
 		return Math.ceil(totalRooms / roomsPerPage)
 	}
@@ -76,8 +76,8 @@ const ExistingRooms = () => {
 	const indexOfFirstRoom = indexOfLastRoom - roomsPerPage
 	const currentRooms = filteredRooms.slice(indexOfFirstRoom, indexOfLastRoom)
 
-  return (
-<>
+	return (
+		<>
 			<div className="container col-md-8 col-lg-6">
 				{successMessage && <p className="alert alert-success mt-5">{successMessage}</p>}
 
@@ -99,7 +99,7 @@ const ExistingRooms = () => {
 							</Col>
 
 							<Col md={6} className="d-flex justify-content-end">
-								<Link to={"/add-room"}>
+								<Link className='no-underline' to={"/add-room"}>
 									<FaPlus /> Add Room
 								</Link>
 							</Col>
@@ -122,22 +122,22 @@ const ExistingRooms = () => {
 										<td>{room.roomType}</td>
 										<td>{room.roomPrice}</td>
 										<td className="gap-2">
-											<Link to={`/edit-room/${room.id}`} className="gap-2"> 
-                                           
+											<Link to={`/edit-room/${room.id}`} className="gap-2">
+
 												<span className="btn btn-info btn-sm">
 													<FaEye />
-                                                
+
 												</span>
 												<span className="btn btn-warning btn-sm ml-5">
-                                                  
+
 													<FaEdit />
 												</span>
-											 </Link> 
+											</Link>
 											<button
 												className="btn btn-danger btn-sm ml-5"
-											 onClick={() => handleDelete(room.id)}> 
+												onClick={() => handleDelete(room.id)}>
 												<FaTrashAlt />
-                                            
+
 											</button>
 										</td>
 									</tr>
