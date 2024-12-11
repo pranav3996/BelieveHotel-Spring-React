@@ -8,7 +8,7 @@ import com.bhotel.model.User;
 
 public interface UserRepository extends JpaRepository<User ,Long > {
 
-    boolean existsByEmail(String email);
+	boolean existsByEmail(String email);
 
     void deleteByEmail(String email);
 
