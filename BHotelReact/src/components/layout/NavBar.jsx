@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react"
+import React, {  useState } from "react"
 import { NavLink, Link } from "react-router-dom"
 
-
-
 const NavBar = () => {
+	
 	const [showAccount, setShowAccount] = useState(false)
 
 	const handleAccountClick = () => {
@@ -38,7 +37,6 @@ const NavBar = () => {
 								Browse all rooms
 							</NavLink>
 						</li>
-
 						{/* {isLoggedIn && userRole === "ROLE_ADMIN" && ( */}
 						<li className="nav-item">
 							<NavLink className="nav-link" aria-current="page" to={"/admin"}>
@@ -47,14 +45,12 @@ const NavBar = () => {
 						</li>
 						{/* )} */}
 					</ul>
-
 					<ul className="d-flex navbar-nav">
 						<li className="nav-item">
 							<NavLink className="nav-link" to={"/find-booking"}>
 								Find my booking
 							</NavLink>
 						</li>
-
 						<li className="nav-item dropdown">
 							<a
 								className={`nav-link dropdown-toggle ${showAccount ? "show" : ""}`}
@@ -66,7 +62,6 @@ const NavBar = () => {
 								{" "}
 								Account
 							</a>
-
 							<ul
 								className={`dropdown-menu ${showAccount ? "show" : ""}`}
 								aria-labelledby="navbarDropdown">

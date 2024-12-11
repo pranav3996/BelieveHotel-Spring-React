@@ -1,8 +1,9 @@
-import React, { useContext } from "react"
+import React from "react"
 import { Card, Col } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
 const RoomCard = ({ room }) => {
+	
 	return (
 		<Col key={room.id} className="mb-4" xs={12}>
 			<Card>

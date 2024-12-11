@@ -1,20 +1,20 @@
 import React, { useEffect } from "react"
 import moment from "moment"
 import { useState } from "react"
-import { Form, FormControl, Button } from "react-bootstrap"
+import { Form, FormControl } from "react-bootstrap"
 import BookingSummary from "./BookingSummary"
 import { bookRoom, getRoomById } from "../utils/ApiFunctions"
 import { useNavigate, useParams } from "react-router-dom"
 
-
 const BookingForm = () => {
+
 	const [validated, setValidated] = useState(false)
 	const [isSubmitted, setIsSubmitted] = useState(false)
 	const [errorMessage, setErrorMessage] = useState("")
 	const [roomPrice, setRoomPrice] = useState(0)
-
+	
 	// const currentUser = localStorage.getItem("userId")
-
+	
 	const [booking, setBooking] = useState({
 		guestFullName: "",
 		// guestEmail: currentUser,
@@ -24,7 +24,6 @@ const BookingForm = () => {
 		numOfAdults: "",
 		numOfChildren: ""
 	})
-
 
 	const { roomId } = useParams()
 	const navigate = useNavigate()
@@ -254,4 +253,5 @@ const BookingForm = () => {
 		</>
 	)
 }
+
 export default BookingForm

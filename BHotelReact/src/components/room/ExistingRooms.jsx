@@ -43,8 +43,6 @@ const ExistingRooms = () => {
 		setCurrentPage(1)
 	}, [rooms, selectedRoomType])
 
-
-
 	const handleDelete = async (roomId) => {
 		try {
 			const result = await deleteRoom(roomId)

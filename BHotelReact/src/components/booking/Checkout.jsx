@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa"
 
 const Checkout = () => {
+
 	const [error, setError] = useState("");
 	const [isLoading, setIsLoading] = useState(true);
 	const [roomInfo, setRoomInfo] = useState({
@@ -21,6 +22,7 @@ const Checkout = () => {
 		roomType: "",
 		roomPrice: ""
 	});
+	
 	const { roomId } = useParams();
 
 	useEffect(() => {
@@ -35,8 +37,8 @@ const Checkout = () => {
 					setIsLoading(false)
 				})
 		}, 2000)
-
 	}, [roomId])
+	
 	return (
 		<div>
 			<section className="container">

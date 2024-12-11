@@ -3,10 +3,12 @@ import moment from "moment"
 import { cancelBooking, getBookingByConfirmationCode } from "../utils/ApiFunctions"
 
 const FindBooking = () => {
+
 	const [confirmationCode, setConfirmationCode] = useState("")
 	const [error, setError] = useState(null)
 	const [successMessage, setSuccessMessage] = useState("")
 	const [isLoading, setIsLoading] = useState(false)
+	const [isDeleted, setIsDeleted] = useState(false)
 	const [bookingInfo, setBookingInfo] = useState({
 		id: "",
 		bookingConfirmationCode: "",
@@ -34,7 +36,6 @@ const FindBooking = () => {
 		numOfChildren: "",
 		totalNumOfGuests: ""
 	}
-	const [isDeleted, setIsDeleted] = useState(false)
 
 	const handleInputChange = (event) => {
 		setConfirmationCode(event.target.value)
@@ -43,7 +44,6 @@ const FindBooking = () => {
 	const handleFormSubmit = async (event) => {
 		event.preventDefault()
 		setIsLoading(true)
-
 		try {
 			const data = await getBookingByConfirmationCode(confirmationCode)
 			setBookingInfo(data)
@@ -56,7 +56,6 @@ const FindBooking = () => {
 				setError(error.message)
 			}
 		}
-
 		setTimeout(() => setIsLoading(false), 2000)
 	}
 
@@ -92,7 +91,6 @@ const FindBooking = () => {
 							onChange={handleInputChange}
 							placeholder="Enter the booking confirmation code"
 						/>
-
 						<button type="submit" className="btn btn-hotel input-group-text">
 							Find booking
 						</button>

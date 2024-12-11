@@ -3,15 +3,16 @@ import { getRoomById, updateRoom } from "../utils/ApiFunctions"
 import { Link, useParams } from "react-router-dom"
 
 const EditRoom = () => {
+
+	const [imagePreview, setImagePreview] = useState("")
+	const [successMessage, setSuccessMessage] = useState("")
+	const [errorMessage, setErrorMessage] = useState("")
 	const [room, setRoom] = useState({
 		photo: "",
 		roomType: "",
 		roomPrice: ""
 	})
 
-	const [imagePreview, setImagePreview] = useState("")
-	const [successMessage, setSuccessMessage] = useState("")
-	const [errorMessage, setErrorMessage] = useState("")
 	const { roomId } = useParams()
 
 	const handleImageChange = (e) => {
@@ -41,7 +42,6 @@ const EditRoom = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-
 		try {
 			const response = await updateRoom(roomId, room)
 			if (response.status === 200) {

@@ -4,8 +4,6 @@ export const api = axios.create({
 	baseURL: "http://localhost:9192"
 })
 
-
-
 /* This function adds a new room room to the database */
 export async function addRoom(photo, roomType, roomPrice) {
 	const formData = new FormData()
@@ -27,7 +25,6 @@ export async function addRoom(photo, roomType, roomPrice) {
 /* This function gets all room types from thee database */
 export async function getRoomTypes() {
 	try {
-
 		const response = await api.get("/rooms/room/types")
 		return response.data
 	} catch (error) {
@@ -71,7 +68,7 @@ export async function updateRoom(roomId, roomData) {
 	return response
 }
 
-/* This funcction gets a room by the id */
+/* This function gets a room by the id */
 export async function getRoomById(roomId) {
 	try {
 		const result = await api.get(`/rooms/room/${roomId}`)
@@ -117,7 +114,7 @@ export async function getBookingByConfirmationCode(confirmationCode) {
 		if (error.response && error.response.data) {
 			throw new Error(error.response.data)
 		} else {
-			throw new Error(`Error find booking : ${error.message}`)
+			throw new Error(`Error find booking : ${error.message}`) 
 		}
 	}
 }

@@ -4,15 +4,15 @@ import RoomTypeSelector from "../common/RoomTypeSelector"
 import { Link } from "react-router-dom"
 
 const AddRoom = () => {
+
+	const [successMessage, setSuccessMessage] = useState("")
+	const [errorMessage, setErrorMessage] = useState("")
+	const [imagePreview, setImagePreview] = useState("")
 	const [newRoom, setNewRoom] = useState({
 		photo: null,
 		roomType: "",
 		roomPrice: ""
 	})
-
-	const [successMessage, setSuccessMessage] = useState("")
-	const [errorMessage, setErrorMessage] = useState("")
-	const [imagePreview, setImagePreview] = useState("")
 
 	const handleRoomInputChange = (e) => {
 		const name = e.target.name

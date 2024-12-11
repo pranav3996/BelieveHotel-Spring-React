@@ -6,6 +6,7 @@ import RoomFilter from "../common/RoomFilter"
 import RoomPaginator from "../common/RoomPaginator"
 
 const Room = () => {
+	
 	const [data, setData] = useState([])
 	const [error, setError] = useState(null)
 	const [isLoading, setIsLoading] = useState(false)
@@ -26,6 +27,7 @@ const Room = () => {
 				setIsLoading(false)
 			})
 	}, [])
+
 	if (isLoading) {
 		return <div>Loading rooms.....</div>
 	}
