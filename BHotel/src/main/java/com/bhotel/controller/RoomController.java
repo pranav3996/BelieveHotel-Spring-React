@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,7 +38,6 @@ import com.bhotel.service.Interfaces.IRoomService;
 
 @RestController
 @RequestMapping("/rooms")
-@CrossOrigin
 public class RoomController {
 
 	@Autowired
@@ -48,7 +47,7 @@ public class RoomController {
 	private BookingService bookingService;
 
 	@PostMapping("/add/new-room")
-//	    @PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<RoomResponse> addNewRoom(@RequestParam("photo") MultipartFile photo,
 			@RequestParam("roomType") String roomType, @RequestParam("roomPrice") BigDecimal roomPrice)
 			throws SQLException, IOException {
@@ -80,14 +79,14 @@ public class RoomController {
 	}
 
 	@DeleteMapping("/delete/room/{roomId}")
-//	    @PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<Void> deleteRoom(@PathVariable Long roomId) {
 		roomService.deleteRoom(roomId);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 	@PutMapping("/update/{roomId}")
-//	    @PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<RoomResponse> updateRoom(@PathVariable Long roomId,
 			@RequestParam(required = false) String roomType, @RequestParam(required = false) BigDecimal roomPrice,
 			@RequestParam(required = false) MultipartFile photo) throws SQLException, IOException {

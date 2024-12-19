@@ -39,28 +39,28 @@ public class WebSecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 
-	@Bean
-	public DaoAuthenticationProvider authenticationProvider() {
-		var authProvider = new DaoAuthenticationProvider();
-		authProvider.setUserDetailsService(userDetailsService);
-		authProvider.setPasswordEncoder(passwordEncoder());
-		return authProvider;
-	}
-
+//	@Bean
+//	public DaoAuthenticationProvider authenticationProvider() {
+//		var authProvider = new DaoAuthenticationProvider();
+//		authProvider.setUserDetailsService(userDetailsService);
+//		authProvider.setPasswordEncoder(passwordEncoder());
+//		return authProvider;
+//	}
+//
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
 		return authConfig.getAuthenticationManager();
 	}
 
-	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.csrf(AbstractHttpConfigurer::disable)
-				.exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthEntryPoint))
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**", "/rooms/**", "/bookings/**").permitAll()
-						.requestMatchers("/roles/**").hasRole("ADMIN").anyRequest().authenticated());
-		http.authenticationProvider(authenticationProvider());
-		http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-		return http.build();
-	}
+//	@Bean
+//	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//		http.csrf(AbstractHttpConfigurer::disable)
+//				.exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthEntryPoint))
+//				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//				.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/login", "/auth/register-user", "/rooms/**", "/bookings/**").permitAll()
+//						.requestMatchers("/roles/**").hasRole("ADMIN").anyRequest().authenticated());
+//		http.authenticationProvider(authenticationProvider());
+//		http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+//		return http.build();
+//	}
 }
