@@ -39,7 +39,7 @@ public class HotelUserDetails implements UserDetails {
 	public void setAuthorities(Collection<GrantedAuthority> authorities) {
 		this.authorities = authorities;
 	}
-	
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
@@ -74,7 +74,7 @@ public class HotelUserDetails implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-	
+
 	public HotelUserDetails() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -94,6 +94,5 @@ public class HotelUserDetails implements UserDetails {
 		return new HotelUserDetails(user.getId(), user.getEmail(), user.getPassword(), authorities);
 
 	}
-
 
 }

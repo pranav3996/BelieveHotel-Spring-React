@@ -1,4 +1,5 @@
 package com.bhotel.service;
+
 import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,42 +20,42 @@ import java.util.List;
 @Service
 public class UserService implements IUserService {
 	@Autowired
-    private  UserRepository userRepository;
+	private UserRepository userRepository;
 	@Autowired
-    private  PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 	@Autowired
-    private  RoleRepository roleRepository;
+	private RoleRepository roleRepository;
 
-    @Override
-    public User registerUser(User user) {
-        if (userRepository.existsByEmail(user.getEmail())){
-            throw new UserAlreadyExistsException(user.getEmail() + " already exists");
-        }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        System.out.println(user.getPassword());
-        Role userRole = roleRepository.findByName("ROLE_USER").get();
-        user.setRoles(Collections.singletonList(userRole));
-        return userRepository.save(user);
-    }
+	@Override
+	public User registerUser(User user) {
+		if (userRepository.existsByEmail(user.getEmail())) {
+			throw new UserAlreadyExistsException(user.getEmail() + " already exists");
+		}
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		System.out.println(user.getPassword());
+//		Role userRole = roleRepository.findByName("ROLE_USER").get();
+		Role userRole = roleRepository.findByName("ROLE_USER")
+				.orElseThrow(() -> new RuntimeException("Default role not found"));
+		user.setRoles(Collections.singletonList(userRole));
+		return userRepository.save(user);
+	}
 
-    @Override
-    public List<User> getUsers() {
-        return userRepository.findAll();
-    }
+	@Override
+	public List<User> getUsers() {
+		return userRepository.findAll();
+	}
 
-    @Transactional
-    @Override
-    public void deleteUser(String email) {
-        User theUser = getUser(email);
-        if (theUser != null){
-            userRepository.deleteByEmail(email);
-        }
+	@Transactional
+	@Override
+	public void deleteUser(String email) {
+		User theUser = getUser(email);
+		if (theUser != null) {
+			userRepository.deleteByEmail(email);
+		}
+	}
 
-    }
-
-    @Override
-    public User getUser(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-    }
+	@Override
+	public User getUser(String email) {
+		return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+	}
 }

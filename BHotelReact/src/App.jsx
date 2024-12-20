@@ -1,4 +1,3 @@
-
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import "/node_modules/bootstrap/dist/js/bootstrap.min.js"
 import './App.css'
@@ -17,9 +16,11 @@ import Checkout from "./components/booking/Checkout"
 import BookingSuccess from "./components/booking/BookingSuccess"
 import Bookings from "./components/booking/Bookings"
 import FindBooking from "./components/booking/FindBooking"
+import Registration from "./components/auth/Registration"
+import Login from "./components/auth/Login"
+import Profile from "./components/auth/Profile"
 
 function App() {
-
 
   return (
     <>
@@ -45,6 +46,12 @@ function App() {
             <Route path="/booking-success" element={<BookingSuccess />} />
             <Route path="/existing-bookings" element={<Bookings />} />
             <Route path="/find-booking" element={<FindBooking />} />
+
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Registration />} />
+
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/logout" element={<FindBooking />} />
           </Routes>
           <Footer />
         </Router>

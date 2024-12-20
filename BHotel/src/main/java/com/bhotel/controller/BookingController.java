@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +31,7 @@ public class BookingController {
 	private IRoomService roomService;
 
 	@GetMapping("/all-bookings")
-   @PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<List<BookingResponse>> getAllBookings() {
 
 		List<BookedRoom> bookings = bookingService.getAllBookings();
@@ -41,12 +40,13 @@ public class BookingController {
 			BookingResponse bookingResponse = getBookingResponse(booking);
 			bookingResponses.add(bookingResponse);
 		}
-		return ResponseEntity.ok(bookingResponses);
 
+		return ResponseEntity.ok(bookingResponses);
 	}
 
 	@GetMapping("/confirmation/{confirmationCode}")
 	public ResponseEntity<?> getBookingByConfirmationCode(@PathVariable String confirmationCode) {
+
 		try {
 			BookedRoom booking = bookingService.findByBookingConfirmationCode(confirmationCode);
 			BookingResponse bookingResponse = getBookingResponse(booking);
@@ -54,10 +54,12 @@ public class BookingController {
 		} catch (ResourceNotFoundException ex) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
 		}
+
 	}
 
 	@PostMapping("/room/{roomId}/booking")
 	public ResponseEntity<?> saveBooking(@PathVariable Long roomId, @RequestBody BookedRoom bookingRequest) {
+
 		try {
 			String confirmationCode = bookingService.saveBooking(roomId, bookingRequest);
 			return ResponseEntity
@@ -66,6 +68,7 @@ public class BookingController {
 		} catch (InvalidBookingRequestException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
+
 	}
 
 	@DeleteMapping("/booking/{bookingId}/delete")

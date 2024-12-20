@@ -18,10 +18,6 @@ public class Role {
 	@ManyToMany(mappedBy = "roles")
 	private Collection<User> users = new HashSet<>();
 
-	public String getName() {
-		return name != null ? name : "";
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -40,18 +36,6 @@ public class Role {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Role() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Role(Long id, String name, Collection<User> users) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.users = users;
 	}
 
 	public Role(String name) {
@@ -74,6 +58,15 @@ public class Role {
 			List<User> roleUsers = this.getUsers().stream().toList();
 			roleUsers.forEach(this::removeUserFromRole);
 		}
+	}
+
+	public String getName() {
+		return name != null ? name : "";
+	}
+
+	public Role() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 }

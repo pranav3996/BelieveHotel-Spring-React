@@ -1,7 +1,7 @@
 import React from "react"
 
 const MainHeader = () => {
-	
+
 	return (
 		<header className="header-banner">
 			<div className="overlay"></div>

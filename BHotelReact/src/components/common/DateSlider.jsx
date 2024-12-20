@@ -4,7 +4,7 @@ import "react-date-range/dist/theme/default.css"
 import { DateRangePicker } from "react-date-range"
 
 const DateSlider = ({ onDateChange, onFilterChange }) => {
-    
+
     const [dateRange, setDateRange] = useState({
         startDate: undefined,
         endDate: undefined,
@@ -28,7 +28,7 @@ const DateSlider = ({ onDateChange, onFilterChange }) => {
         onDateChange(null, null)
         onFilterChange(null, null)
     }
-    
+
     return (
         <>
             <h5>Filter bookings by date</h5>

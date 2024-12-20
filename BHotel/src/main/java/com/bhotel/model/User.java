@@ -1,7 +1,7 @@
 package com.bhotel.model;
 
 import jakarta.persistence.*;
-   
+
 import java.util.Collection;
 import java.util.HashSet;
 
